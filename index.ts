@@ -4,7 +4,8 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
 import { Account, AccountType } from "./DB/Schema";
-// import { cities } from './DB/Schema';
+import { eq } from "drizzle-orm";
+// import { cities, Account } from './DB/Schema';
 
 // for migrations
 // const migrationClient = postgres("postgres://postgres:adminadmin@0.0.0.0:5432/db", { max: 1 });
@@ -23,18 +24,53 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
+// Get All accounts
 app.get("/chartofaccounts", async (req, res) => {
   const data = await db.select().from(Account);
 
   res.json(data);
 });
 
+// Add New Account
 app.post("/chartofaccounts", async (req, res) => {
+  
   const account = req.body;
+  console.log(req.body);
 
   const created = await db.insert(Account).values(account);
 
   res.json(created);
+});
+
+// Get One Account
+app.get("/chartofaccount/:id", async (req, res) => {
+  console.log(JSON.stringify(req.params.id));
+
+  const data = await db
+    .select()
+    .from(Account)
+    .where(eq(Account.id, parseInt(req.params.id)));
+
+  res.json(data);
+});
+
+// Update Account
+// app.get("/chartofaccount/:id", async (req, res) => {
+//   const data = await db
+//     .select()
+//     .from(Account)
+//     .where(eq(Account.id, parseInt(req.params.id)));
+
+//   res.json(data);
+// });
+
+// Delete Account
+app.delete("/chartofaccounts/:id", async (req, res) => {
+  const data = await db
+    .delete(Account)
+    .where(eq(Account.id, parseInt(req.params.id)));
+
+  res.json(data);
 });
 
 app.get("/accountsType", async (req, res) => {
