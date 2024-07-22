@@ -32,14 +32,17 @@ app.get("/chartofaccounts", async (req, res) => {
 });
 
 // Add New Account
-app.post("/chartofaccounts", async (req, res) => {
-  
-  const account = req.body;
-  console.log(req.body);
+app.post("/chartofaccounts", async (req, res, next) => {
+  try {
+    const account = req.body;
+    console.log(req.body);
 
-  const created = await db.insert(Account).values(account);
+    const created = await db.insert(Account).values(account);
 
-  res.json(created);
+    res.json(created);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Get One Account
