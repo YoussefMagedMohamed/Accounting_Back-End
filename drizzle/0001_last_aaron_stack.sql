@@ -13,6 +13,16 @@ CREATE TABLE IF NOT EXISTS "accountType" (
 	"type" varchar(256)
 );
 --> statement-breakpoint
+-- CREATE TABLE IF NOT EXISTS "items" (
+-- 	"id" serial PRIMARY KEY NOT NULL,
+-- 	"name" varchar(256),
+-- 	"description" varchar(256)
+-- 	"purchaseDescription" varchar(256)
+-- 	"rate" varchar(256)
+-- 	"purchaseRate" varchar(256)
+-- 	"usageUnit" varchar(256)
+-- );
+-- --> statement-breakpoint
 DROP TABLE "cities";--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_accTypeId_accountType_id_fk" FOREIGN KEY ("accTypeId") REFERENCES "public"."accountType"("id") ON DELETE no action ON UPDATE no action;

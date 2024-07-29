@@ -1,4 +1,11 @@
-import { doublePrecision, foreignKey, integer, pgTable, serial, varchar } from "drizzle-orm/pg-core";
+import {
+  doublePrecision,
+  foreignKey,
+  integer,
+  pgTable,
+  serial,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 // export const cities = pgTable("cities", {
 //   id: serial("id").primaryKey(),
@@ -19,7 +26,18 @@ export const Account = pgTable("account", {
   code: varchar("code", { length: 256 }),
   description: varchar("description", { length: 256 }),
 
-  balance: doublePrecision('balance'),
+  balance: doublePrecision("balance"),
 
-  AccountTypeId: serial("accTypeId").references(()=> AccountType.id)
+  AccountTypeId: serial("accTypeId").references(() => AccountType.id),
+});
+
+// Items Table
+export const Items = pgTable("items", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 256 }),
+  description: varchar("description", { length: 256 }),
+  purchaseDescription: varchar("purchaseDescription", { length: 256 }),
+  rate: varchar("rate", { length: 256 }),
+  purchaseRate: varchar("purchaseRate", { length: 256 }),
+  usageUnit: varchar("usageUnit", { length: 256 }),
 });
